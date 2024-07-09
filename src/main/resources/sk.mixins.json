@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cn.ksmcbrigade.sk.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "sk.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "KeyListMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
