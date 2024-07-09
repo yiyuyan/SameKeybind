@@ -23,7 +23,7 @@ public class KeyListMixin {
 
     @Shadow @Final private KeyMapping key;
 
-    @Inject(method = "refreshEntry",at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/Button;setMessage(Lnet/minecraft/network/chat/Component;)V"),slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/network/chat/MutableComponent;append(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/MutableComponent;"),to = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/Button;setTooltip(Lnet/minecraft/client/gui/components/Tooltip;)V")))
+    @Inject(method = "refreshEntry",at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/Button;setMessage(Lnet/minecraft/network/chat/Component;)V",shift = At.Shift.BEFORE),slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/network/chat/MutableComponent;append(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/chat/MutableComponent;"),to = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/Button;setTooltip(Lnet/minecraft/client/gui/components/Tooltip;)V")), cancellable = true)
     public void ref(CallbackInfo ci){
         this.hasCollision = false;
         this.changeButton.setTooltip(null);
@@ -32,5 +32,6 @@ public class KeyListMixin {
                 this.changeButton.setMessage(Component.literal("> ").append(this.changeButton.getMessage().copy().withStyle(new ChatFormatting[]{ChatFormatting.WHITE, ChatFormatting.UNDERLINE})).append(" <").withStyle(ChatFormatting.YELLOW));
             }
         }
+        ci.cancel();
     }
 }
